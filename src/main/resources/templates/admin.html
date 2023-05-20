@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+<h3>Hello, admin</h3>
+<a th:href="@{/admin/userList}">List of users</a></br>
+<a th:href="@{/user}">User page</a>
+</br>
+<a th:href="@{/logout}">Logout</a></br>
+</body>
+</html>
