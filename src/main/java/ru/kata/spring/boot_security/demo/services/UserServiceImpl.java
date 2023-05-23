@@ -24,9 +24,9 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
         passwordEncoder = new BCryptPasswordEncoder();
-        User user = new User("admin", passwordEncoder.encode("admin"));
-        user.setFirstname("Alyona");
-        user.setLastname(("Pestrikova"));
+        User user = new User("admin@mail.ru", passwordEncoder.encode("admin"));
+        user.setFirstname("admin");
+        user.setLastname(("admin"));
         user.setAge(20);
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(new Role(RoleEnum.ROLE_ADMIN));
@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void editUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.editUser(user);
     }
 

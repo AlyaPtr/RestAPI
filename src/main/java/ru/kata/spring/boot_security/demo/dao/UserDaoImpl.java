@@ -42,10 +42,13 @@ public class UserDaoImpl implements UserDao{
         if (user.getUsername() != null && !Objects.equals(user.getUsername(), "")) {
             old.setUsername(user.getUsername());
         }
-        if (user.getPassword() != null && Objects.equals(user.getPassword(), "")) {
+
+        if (user.getPassword() != null && !Objects.equals(user.getPassword(), "")) {
             old.setPassword(user.getPassword());
         }
-        old.setRoles((Set<Role>) user.getAuthorities());
+        if (user.getAuthorities() != null) {
+            old.setRoles((Set<Role>) user.getAuthorities());
+        }
 
         entityManager.merge(old);
     }
