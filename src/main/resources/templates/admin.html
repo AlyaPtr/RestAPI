@@ -209,7 +209,7 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <form class="container form-horizontal" th:method="post" th:action="@{admin/create}">
+                                <form class="container form-horizontal" id="createForm" th:method="post" th:action="@{admin/create}">
                                     <div align="center">
                                         <div class="col-sm fw-bold" style="max-width: 350px;">
                                             <div style="padding-top: 1vh;">
@@ -276,6 +276,8 @@
         })
     })
 </script>
+
+<script src="../js/main.js"></script>
 
 </body>
 </html>
