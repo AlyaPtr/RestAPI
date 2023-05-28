@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -49,6 +50,11 @@ public class AdminController {
     @PutMapping(value = "/edit/{id}")
     public ResponseEntity<?> editUser(@RequestBody User user, @PathVariable Long id) {
         user.setId(id);
+        System.out.println("Name " + user.getFirstname());
+        System.out.println("Lats Name " + user.getLastname());
+        System.out.println("Age " + user.getAge());
+        System.out.print("Roles ");
+        user.getAuthorities().forEach(a -> System.out.println(a.getAuthority()));
         userServiceImpl.editUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }

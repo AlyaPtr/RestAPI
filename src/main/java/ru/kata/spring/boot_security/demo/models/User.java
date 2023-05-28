@@ -1,5 +1,9 @@
 package ru.kata.spring.boot_security.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,27 +13,36 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Users")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements UserDetails {
     @Id
+    @JsonProperty("id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "firstname")
+    @JsonProperty("firstname")
     private String firstname;
 
     @Column(name = "lastname")
+    @JsonProperty("lastname")
     private String lastname;
 
     @Column(name = "age")
+    @JsonProperty("age")
     private Integer age;
 
     @Column(name = "email")
+    @JsonProperty("email")
     private String email;
 
     @Column(name = "password")
+    @JsonProperty("password")
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonProperty("roles")
+    @JsonManagedReference
     private Set<Role> roles;
 
     public User() {}
@@ -37,6 +50,17 @@ public class User implements UserDetails {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    @JsonCreator
+    public User(Long id, String firstname, String lastname, Integer age, String email, String password, Set<Role> roles) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
 
     public void setId(Long id) {

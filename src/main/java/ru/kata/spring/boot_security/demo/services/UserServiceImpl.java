@@ -33,6 +33,15 @@ public class UserServiceImpl implements UserService {
         roleSet.add(new Role(RoleEnum.ROLE_USER));
         user.setRoles(roleSet);
         userDao.saveUser(user);
+
+        user = new User("user@mail.ru", passwordEncoder.encode("user"));
+        user.setFirstname("user");
+        user.setLastname(("user"));
+        user.setAge(19);
+        roleSet = new HashSet<>();
+        roleSet.add(new Role(RoleEnum.ROLE_USER));
+        user.setRoles(roleSet);
+        userDao.saveUser(user);
     }
 
     @Override

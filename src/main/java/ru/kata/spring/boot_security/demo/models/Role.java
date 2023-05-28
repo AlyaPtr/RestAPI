@@ -1,11 +1,14 @@
 package ru.kata.spring.boot_security.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Roles")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -23,6 +26,7 @@ public class Role implements GrantedAuthority {
     }
 
     public Role() {}
+    @JsonCreator
     public Role(RoleEnum name) {
         this.name = name;
     }
