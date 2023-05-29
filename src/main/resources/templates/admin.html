@@ -14,10 +14,16 @@
 
 <div class="container-fluid">
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark w-100" style="height: 7vh">
-        <div class="collapse navbar-collapse text-white" th:object="${currentUser}" id="navbarNav">
+        <div class="collapse navbar-collapse text-white" id="navbarNav">
+            <div class="col-11" style="font-size: 14pt">
+                <b th:text="${currentUser.getUsername()} + ' '"></b>
+                with roles
+                <span th:each="role : ${roles}"
+                      th:text="${#strings.replace(role, 'ROLE_', '')} + ' '"></span>
+            </div>
         </div>
         <div class="col-1">
-            <a class="text-muted" th:href="@{/logout}">Logout</a></br>
+            <a class="text-muted" href="/logout">Logout</a></br>
         </div>
     </nav>
 
@@ -76,7 +82,7 @@
                                                                     <div class="col-sm fw-bold" style="max-width: 340px;">
                                                                         <div style="padding-top: 1vh">
                                                                             <b>ID</b>
-                                                                            <input id="edit_id" name="id" type="text" readonly class="form-control"/>
+                                                                            <input  id="edit_id" name="id" type="text" readonly class="form-control"/>
                                                                         </div>
                                                                         <div style="padding-top: 2vh;">
                                                                             <b>First name</b>
@@ -101,6 +107,11 @@
                                                                         <div id="edit_roles" style="padding-top: 2vh; padding-bottom: 3vh">
                                                                             <b>Role</b>
                                                                             <select id="edit_roles_select" class="form-control w-100 px-2 py-1" style="height: 52px;" multiple name="roleEnum">
+                                                                                <option th:each="role : ${T(ru.kata.spring.boot_security.demo.models.RoleEnum).values()}"
+                                                                                        th:value="${role}"
+                                                                                        th:text="${#strings.replace(role, 'ROLE_', '')}">
+                                                                                    Role
+                                                                                </option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -110,6 +121,56 @@
                                                                     <button id="edit_button" type="submit" data-dismiss="modal" class="btn btn-primary">Edit</button>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="deleteModal" class="modal fade" tabindex="-1" aria-labelledby="staticBackgroundLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form class="container form-horizontal">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Delete user</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none"><span aria-hidden="true">×</span></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div align="center">
+                                                                <div class="col-sm fw-bold" style="max-width: 350px;">
+                                                                    <div style="padding-top: 3vh">
+                                                                        <b>ID</b>
+                                                                        <input id="delete_id" name="id" type="text" readonly class="form-control"/>
+                                                                    </div>
+                                                                    <div style="padding-top: 3vh;">
+                                                                        <b>First name</b>
+                                                                        <input id="delete_firstname" name="firstname" type="text" readonly class="form-control" placeholder="First name"/>
+                                                                    </div>
+                                                                    <div style="padding-top: 3vh">
+                                                                        <b>Last name</b>
+                                                                        <input id="delete_lastname" name="lastname" type="text" readonly class="form-control" placeholder="Last name"/>
+                                                                    </div>
+                                                                    <div style="padding-top: 3vh">
+                                                                        <b>Age</b>
+                                                                        <input id="delete_age" name="age" type="text" readonly class="form-control" placeholder="Age"/>
+                                                                    </div>
+                                                                    <div style="padding-top: 3vh">
+                                                                        <b>Email</b>
+                                                                        <input id="delete_email" name="email" readonly class="form-control" placeholder="userName"/>
+                                                                    </div>
+                                                                    <div style="padding-top: 3vh">
+                                                                        <b>Role</b>
+                                                                        <select id="delete_roles" class="form-control w-100 px-2 py-1" readonly style="height: 52px;" multiple name="roleEnum">
+                                                                            <option>
+                                                                                Role
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button id="delete_button" type="submit" class="btn btn-danger">Delete</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -186,7 +247,7 @@
                                                 </div>
                                                 <div class="column" style="width: 6vw;">
                                                     <a class="btn btn-danger" data-toggle="modal" th:data-target="'#deleteModal' + ${user.getId()}">Delete</a>
-                                                    <div class="modal fade" th:id="'deleteModal' + ${user.getId()}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                    <div class="modal fade" id="'deleteModal' + ${user.getId()}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                                          aria-labelledby="staticBackgroundLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
@@ -327,9 +388,9 @@
 
 </script>
 
-<script src="../js/navbar.js"></script>
-<script src="../js/main.js"></script>
-<script src="../js/editForm.js"></script>
+<script src="main.js"></script>
+<script src="editForm.js"></script>
+<script src="deleteForm.js"></script>
 
 
 </body>
