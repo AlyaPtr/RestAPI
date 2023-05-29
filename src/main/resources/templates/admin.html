@@ -82,7 +82,7 @@
                                                                     <div class="col-sm fw-bold" style="max-width: 340px;">
                                                                         <div style="padding-top: 1vh">
                                                                             <b>ID</b>
-                                                                            <input  id="edit_id" name="id" type="text" readonly class="form-control"/>
+                                                                            <input id="edit_id" name="id" type="text" readonly class="form-control"/>
                                                                         </div>
                                                                         <div style="padding-top: 2vh;">
                                                                             <b>First name</b>
@@ -170,140 +170,12 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button id="delete_button" type="submit" class="btn btn-danger">Delete</button>
+                                                            <button id="delete_button" type="submit" data-dismiss="modal" class="btn btn-danger">Delete</button>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--<li class="list-group-item" th:style="${user.getId() == currentUser.getId() ? 'background-color: #f8f9fa;' : 'background-color: white;'}" th:each="user : ${users}" th:object="${currentUser}">
-                                            <div class="row">
-                                                <div class="column" style="width: 5vw;"><span th:text="${user.getId()}"></span></div>
-                                                <div class="column" style="width: 13vw;"><span th:text="${user.getFirstname()}">First Name</span></div>
-                                                <div class="column" style="width: 13vw;"><span th:text="${user.getLastname()}">Last Name</span></div>
-                                                <div class="column" style="width: 7vw;"><span th:text="${user.getAge()}">Age</span></div>
-                                                <div class="column" style="width: 13vw;"><span th:text="${user.getUsername()}">Email</span></div>
-                                                <div class="column" style="width: 13vw;">
-                                                    <span th:each="role : ${user.getAuthorities()}" th:text="${#strings.replace(role.getAuthority(), 'ROLE_', '')} + ' '"></span></div>
-                                                <div class="colum" style="width: 6vw;" id="buttonEdit">
-                                                    <a class="btn btn-info" data-toggle="modal" th:data-target="'#editModal' + ${user.getId()}">Edit</a>
-                                                    <div class="modal fade" th:id="'editModal' + ${user.getId()}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                                                         aria-labelledby="staticBackgroundLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <form class="container form-horizontal" th:method="post" th:action="@{admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title">Edit user</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none"><span aria-hidden="true">×</span></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <div align="center">
-                                                                            <div class="col-sm fw-bold" style="max-width: 350px;">
-                                                                                <div style="padding-top: 3vh">
-                                                                                    <b>ID</b>
-                                                                                    <input th:value="*{id}" name="id" type="text" readonly class="form-control"/>
-                                                                                </div>
-                                                                                <div style="padding-top: 3vh;">
-                                                                                    <b>First name</b>
-                                                                                    <input th:value="*{getFirstname()}" name="firstname" type="text" class="form-control" placeholder="First name"/>
-                                                                                </div>
-                                                                                <div style="padding-top: 3vh">
-                                                                                    <b>Last name</b>
-                                                                                    <input th:value="*{getLastname()}" name="lastname" type="text" class="form-control" placeholder="Last name"/>
-                                                                                </div>
-                                                                                <div style="padding-top: 3vh">
-                                                                                    <b>Age</b>
-                                                                                    <input th:value="*{getAge()}" name="age" type="text" class="form-control" placeholder="Age"/>
-                                                                                </div>
-                                                                                <div style="padding-top: 3vh">
-                                                                                    <b>Email</b>
-                                                                                    <input th:value="*{getUsername()}" type="text" name="email" class="form-control" placeholder="userName"/>
-                                                                                </div>
-                                                                                <div style="padding-top: 3vh">
-                                                                                    <b>Password</b>
-                                                                                    <input name="password" class="form-control"/>
-                                                                                </div>
-                                                                                <div style="padding-top: 3vh">
-                                                                                    <b>Role</b>
-                                                                                    <select class="form-control w-100 px-2 py-1" style="height: 52px;" multiple name="roleEnum">
-                                                                                        <option th:each="role : ${T(ru.kata.spring.boot_security.demo.models.RoleEnum).values()}"
-                                                                                                th:value="${role}"
-                                                                                                th:text="${#strings.replace(role, 'ROLE_', '')}">
-                                                                                            Role
-                                                                                        </option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn btn-primary">Edit</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="column" style="width: 6vw;">
-                                                    <a class="btn btn-danger" data-toggle="modal" th:data-target="'#deleteModal' + ${user.getId()}">Delete</a>
-                                                    <div class="modal fade" id="'deleteModal' + ${user.getId()}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                                                         aria-labelledby="staticBackgroundLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <form class="container form-horizontal" th:method="get" th:action="@{admin/delete/{id}(id=${user.getId()})}" th:object="${user}">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title">Delete user</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none"><span aria-hidden="true">×</span></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <div align="center">
-                                                                            <div class="col-sm fw-bold" style="max-width: 350px;">
-                                                                                <div style="padding-top: 3vh">
-                                                                                    <b>ID</b>
-                                                                                    <input th:value="*{id}" name="id" type="text" readonly class="form-control"/>
-                                                                                </div>
-                                                                                <div style="padding-top: 3vh;">
-                                                                                    <b>First name</b>
-                                                                                    <input th:value="*{getFirstname()}" name="firstname" type="text" readonly class="form-control" placeholder="First name"/>
-                                                                                </div>
-                                                                                <div style="padding-top: 3vh">
-                                                                                    <b>Last name</b>
-                                                                                    <input th:value="*{getLastname()}" name="lastname" type="text" readonly class="form-control" placeholder="Last name"/>
-                                                                                </div>
-                                                                                <div style="padding-top: 3vh">
-                                                                                    <b>Age</b>
-                                                                                    <input th:value="*{getAge()}" name="age" type="text" readonly class="form-control" placeholder="Age"/>
-                                                                                </div>
-                                                                                <div style="padding-top: 3vh">
-                                                                                    <b>Email</b>
-                                                                                    <input th:value="*{getUsername()}" name="email" readonly class="form-control" placeholder="userName"/>
-                                                                                </div>
-                                                                                <div style="padding-top: 3vh">
-                                                                                    <b>Role</b>
-                                                                                    <select class="form-control w-100 px-2 py-1" readonly style="height: 52px;" multiple name="roleEnum">
-                                                                                        <option th:each="role : ${roles}"
-                                                                                                th:value="${role}"
-                                                                                                th:text="${#strings.replace(role, 'ROLE_', '')}">
-                                                                                            Role
-                                                                                        </option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </li>-->
                                     </ul>
                                 </div>
                             </li>
@@ -317,32 +189,32 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <form class="container form-horizontal" id="createForm" th:method="post" th:action="@{admin/create}">
+                                <form class="container form-horizontal" id="createForm">
                                     <div align="center">
                                         <div class="col-sm fw-bold" style="max-width: 350px;">
                                             <div style="padding-top: 1vh;">
                                                 <b>First name</b>
-                                                <input name="firstname" type="text" class="form-control">
+                                                <input required id="add_firstname" name="firstname" type="text" class="form-control">
                                             </div>
                                             <div style="padding-top: 1vh">
                                                 <b>Last name</b>
-                                                <input name="lastname" type="text" class="form-control"/>
+                                                <input required id="add_lastname" name="lastname" type="text" class="form-control"/>
                                             </div>
                                             <div style="padding-top: 1vh">
                                                 <b>Age</b>
-                                                <input name="age" type="text" class="form-control"/>
+                                                <input required id="add_age" name="age" type="text" class="form-control"/>
                                             </div>
                                             <div style="padding-top: 1vh">
                                                 <b>Email</b>
-                                                <input type="text" name="email" class="form-control"/>
+                                                <input required id="add_email" type="text" name="email" class="form-control"/>
                                             </div>
                                             <div style="padding-top: 1vh">
                                                 <b>Password</b>
-                                                <input name="password" class="form-control"/>
+                                                <input required id="add_password" name="password" class="form-control"/>
                                             </div>
                                             <div style="padding-top: 1vh" >
                                                 <b>Role</b>
-                                                <select class="form-control" style="height: 52px;" multiple name="roleEnum">
+                                                <select required id="add_role" class="form-control" style="height: 52px;" multiple name="roleEnum">
                                                     <option th:each="role : ${T(ru.kata.spring.boot_security.demo.models.RoleEnum).values()}"
                                                             th:value="${role}"
                                                             th:text="${#strings.replace(role, 'ROLE_', '')}">
@@ -351,7 +223,7 @@
                                                 </select>
                                             </div>
                                             <div style="padding-top: 1vh">
-                                                <button type="submit" class="btn btn-success">Add new user</button>
+                                                <button  id="add_button" class="btn btn-success">Add new user</button>
                                             </div>
                                         </div>
                                     </div>
@@ -373,6 +245,8 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
+
+
 <script>
 
     var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
@@ -388,6 +262,7 @@
 
 </script>
 
+<script src="addUser.js"></script>
 <script src="main.js"></script>
 <script src="editForm.js"></script>
 <script src="deleteForm.js"></script>

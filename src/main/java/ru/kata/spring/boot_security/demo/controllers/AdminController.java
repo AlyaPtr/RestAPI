@@ -34,16 +34,4 @@ public class AdminController {
         return "admin";
     }
 
-    @PostMapping("/create")
-    public String createUser(User user, RoleEnum roleEnum, ModelMap modelMap) {
-        Set<Role> role = new HashSet<>();
-        role.add(new Role(roleEnum));
-        if(roleEnum != RoleEnum.ROLE_USER) {
-            role.add(new Role(RoleEnum.ROLE_USER));
-        }
-        user.setRoles(role);
-        userServiceImpl.saveUser(user);
-        modelMap.addAttribute("users", userServiceImpl.findAll());
-        return "redirect:/admin";
-    }
 }

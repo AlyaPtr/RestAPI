@@ -28,9 +28,9 @@ public class AdminRestController {
     }
 
     @PostMapping(value = "/create")
-    public ResponseEntity<?> createUser(@RequestBody User user) {
+    public Long createUser(@RequestBody User user) {
         userServiceImpl.saveUser(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return user.getId();
     }
 
     @DeleteMapping(value="/delete/{id}")
@@ -41,8 +41,8 @@ public class AdminRestController {
     @PutMapping(value = "/edit/{id}")
     public ResponseEntity<?> editUser(@RequestBody User user, @PathVariable Long id) {
         user.setId(id);
-        System.out.println(user.getUsername());
         userServiceImpl.editUser(user);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
